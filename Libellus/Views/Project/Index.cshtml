@@ -1,0 +1,18 @@
+﻿@using Libellus.Models;
+@using Libellus.CommonConcerns.Constants;
+
+@model ProjectViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if(Model.User.FacultyRole.Id == (int)CommonHelper.FacultyRole.Professor)
+{
+    Html.RenderPartial("_ProfessorProjectPartial", Model);
+}
+else if(Model.User.FacultyRole.Id == (int)CommonHelper.FacultyRole.Student)
+{
+    Html.RenderPartial("_StudentProjectPartial");
+}

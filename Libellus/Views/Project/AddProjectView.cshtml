@@ -1,0 +1,49 @@
+﻿@using Libellus.Models;
+@using Libellus.CommonConcerns.Constants;
+
+@model ProjectViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add a new project:</h2>
+<section id="createProject">
+    @using (Html.BeginForm("AddProject", "Project", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="selectedName">
+                                Name:
+                            </label>
+                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                        </div>
+                        @if (Model.User.FacultyRoleId == (int)CommonHelper.FacultyRole.Student)
+                        {
+                            <div class="form-group">
+                                <label for="selectedProfessor">
+                                    Submit to:
+                                </label>
+                                @Html.DropDownListFor(x => x.SelectedProfessorId, new SelectList(Model.AvailableProfessors, "Id", "UserName"), new { @class = "form-control" })
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label for="selectedDescription">
+                                Functionality description:
+                            </label>
+                            @Html.TextAreaFor(x => x.Description, new { @class = "form-control", height = "500px" })
+                        </div>
+                        <button type="submit" class="form-group btn btn-success">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</section>
+

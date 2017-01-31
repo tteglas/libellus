@@ -1,0 +1,12 @@
+﻿@model Libellus.Models.ProjectViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h3>Projects waiting for approval:</h3>
+    @{
+        Html.RenderPartial("_ApprovalProgressTablePartial", Model);
+    }
+</div>

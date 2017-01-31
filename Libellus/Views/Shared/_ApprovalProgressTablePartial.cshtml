@@ -1,0 +1,68 @@
+﻿@using Libellus.Models;
+@using PagedList.Mvc;
+
+@model ProjectViewModel
+
+@if (Model.ProcessedDataOnModel)
+{
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Added by
+                            </th>
+                            <th>
+                                Created date
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var proj in Model.AvailableProjects)
+                        {
+                            <tr>
+                                <td>
+                                    @proj.Id
+                                </td>
+                                <td>
+                                    @proj.Name
+                                </td>
+                                <td>
+                                    @proj.Status
+                                </td>
+                                <td>
+                                    @proj.AddedBy
+                                </td>
+                                <td>
+                                    @proj.CreatedDate
+                                </td>
+                                <td>
+                                    @*@Ajax.ActionLink("View", "ViewProject", "Project", new { id = proj.Id },
+                                        new AjaxOptions
+                                        {
+                                            HttpMethod = "GET",
+                                            InsertionMode = InsertionMode.Replace,
+                                            UpdateTargetId = "ViewProjectContainer"
+                                        })*@
+                                    @Html.ActionLink("View", "ViewProject", "Project", new { id = proj.Id }, null)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @Html.PagedListPager(Model.AvailableProjects, page => Url.Action("GetProfessorProjects", new { page, requestedApproval = ViewBag.RequestedApproval }))
+            </div>
+        </div>
+    </div>
+}
