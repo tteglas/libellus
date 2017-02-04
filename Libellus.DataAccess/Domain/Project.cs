@@ -23,7 +23,13 @@ namespace Libellus.DataAccess.Domain
 
         public DateTime ModifiedDate { get; set; }
 
+        public int DepartmentId { get; set; }
+
+        public string UserId { get; set; }
+
         public virtual User User { get; set; }
+
+        public virtual Department Department { get; set; }
 
         public virtual ICollection<Task> Tasks { get; set; }
     }

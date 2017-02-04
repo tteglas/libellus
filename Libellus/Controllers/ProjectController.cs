@@ -45,7 +45,7 @@ namespace Libellus.Controllers
 
             //todo: this should be take into a different controller
             var pageSize = id == null ? 5 : id.Value;
-            var pagedList = new PagedList<Project>(user.Result.Projects, 1, pageSize);
+            var pagedList = new PagedList<Project>(availableProjects, 1, pageSize);
 
             model.AvailableProfessors = availableProfessors;
             model.AvailableProjects = pagedList;
@@ -67,7 +67,8 @@ namespace Libellus.Controllers
             proj.Progress = 0;
             proj.Description = model.Description;
             proj.AddedBy = user.Result.UserName;
-            //proj.DepartmentId = user.Result.Department.Id;
+            proj.DepartmentId = user.Result.Department.Id;
+            proj.UserId = user.Result.Id;
 
             _projectProcessor.CreateNewProject(proj);
             return RedirectToAction("Index", "Project");
@@ -107,10 +108,10 @@ namespace Libellus.Controllers
         {
             var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
             //var projectToView = _projectProcessor.GetAllProjectsInDepartment(user.Result.Department.Id).FirstOrDefault(x => x.Id == id);
-            var projectToView = user.Result.Projects.FirstOrDefault(x => x.Id == id);
+            //var projectToView = user.Result.Projects.FirstOrDefault(x => x.Id == id);
             var model = new ProjectViewModel();
-            model.Name = projectToView.Name;
-            model.Description = projectToView.Description;
+            //model.Name = projectToView.Name;
+            //model.Description = projectToView.Description;
             model.ProcessedDataOnModel = true;
 
             return View("ProjectDetailsView", model);
@@ -124,7 +125,7 @@ namespace Libellus.Controllers
 
             var pageNumber = page ?? 1;
             var pageSize = 5;
-            var pagedList = new PagedList<Project>(user.Result.Projects, pageNumber, pageSize);
+            var pagedList = new PagedList<Project>(new System.Collections.Generic.List<Project>(), pageNumber, pageSize);
 
             var partialToRender = "_ProfessorProjectPartial";
             var model = new ProjectViewModel();

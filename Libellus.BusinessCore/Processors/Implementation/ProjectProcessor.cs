@@ -23,13 +23,13 @@ namespace Libellus.BusinessCore.Processors.Implementation
 
         public IEnumerable<Project> GetAllProjectsInDepartment(int departmentId)
         {
-            var projects = UnitOfWork.ProjectRepository.GetAll().Where(x => x.Depa == departmentId);
+            var projects = UnitOfWork.ProjectRepository.GetAll().Where(x => x.DepartmentId == departmentId);
             return projects.ToList();
         }
 
         public IEnumerable<Project> GetAllWaitingApproval()
         {
-            return UnitOfWork.ProjectRepository.GetAll().Where(x => x.Status == CommonHelper.ReadValueForProjectStatus(CommonHelper.ProjectStatus.WaitingApproval));
+            return UnitOfWork.ProjectRepository.GetAll().Where(x => x.Status == CommonHelper.ReadValueForProjectStatus(CommonHelper.ProjectStatus.New));
         }
 
         public IEnumerable<Project> GetAllInProgress()

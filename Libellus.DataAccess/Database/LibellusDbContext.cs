@@ -25,6 +25,7 @@ namespace Libellus.DataAccess.Database
             modelBuilder.Entity<Project>().ToTable("Project");
             modelBuilder.Entity<Task>().ToTable("Task");
             modelBuilder.Entity<User>().ToTable("AspNetUsers");
+            //modelBuilder.Entity<UserProjectDepartment>().ToTable("UserProjectDepartment");
 
             //modelBuilder.Entity<User>().HasMany(x => x.Projects)
             //    .WithRequired().HasForeignKey(x => x.UserId);

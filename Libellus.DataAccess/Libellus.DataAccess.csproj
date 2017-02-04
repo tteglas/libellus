@@ -92,7 +92,6 @@
     <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\Project.cs" />
     <Compile Include="Domain\Task.cs" />
-    <Compile Include="Domain\UserProjectDepartment.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implementation\BaseRepository.cs" />
