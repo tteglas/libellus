@@ -17,13 +17,14 @@ namespace Libellus.BusinessCore.Processors.Implementation
         public void CreateNewProject(Project model)
         {
             UnitOfWork.ProjectRepository.Add(model);
-            UnitOfWork.ProjectRepository.Save();
-            //UnitOfWork.Save();
+            //UnitOfWork.ProjectRepository.Save();
+            UnitOfWork.Save();
         }
 
         public IEnumerable<Project> GetAllProjectsInDepartment(int departmentId)
         {
-            return UnitOfWork.ProjectRepository.GetAll().Where(x => x.Department.Id == departmentId);
+            var projects = UnitOfWork.ProjectRepository.GetAll().Where(x => x.Depa == departmentId);
+            return projects.ToList();
         }
 
         public IEnumerable<Project> GetAllWaitingApproval()

@@ -72,7 +72,6 @@ D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\bin\Debug\Microsoft.Owi
 D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\bin\Debug\Microsoft.Owin.Security.dll
 D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\bin\Debug\Microsoft.Owin.Security.OAuth.dll
 D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\bin\Debug\Newtonsoft.Json.dll
-D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\bin\Debug\Ninject.dll
 D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\bin\Debug\Owin.dll
 D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\bin\Debug\Libellus.CommonConcerns.pdb
 D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\bin\Debug\EntityFramework.xml
@@ -85,7 +84,6 @@ D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\bin\Debug\Microsoft.Owi
 D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\bin\Debug\Microsoft.Owin.Security.Cookies.xml
 D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\bin\Debug\Microsoft.Owin.Security.OAuth.xml
 D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\bin\Debug\Newtonsoft.Json.xml
-D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\bin\Debug\Ninject.xml
-D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\obj\Debug\Libellus.DataAccess.csprojResolveAssemblyReference.cache
 D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\obj\Debug\Libellus.DataAccess.dll
 D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\obj\Debug\Libellus.DataAccess.pdb
+D:\Projects\Personal\GitHub\libellus\Libellus.DataAccess\obj\Debug\Libellus.DataAccess.csprojResolveAssemblyReference.cache

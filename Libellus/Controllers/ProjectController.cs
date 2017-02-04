@@ -16,39 +16,36 @@ namespace Libellus.Controllers
     public class ProjectController : Controller
     {
         private IProjectProcessor _projectProcessor;
+        private UserCustomManager _userManager;
 
-        public ProjectController(IProjectProcessor projectProcessor)
+
+        public ProjectController(IProjectProcessor projectProcessor,
+            UserCustomManager userManager)
         {
             _projectProcessor = projectProcessor;
-        }
-
-        public UserCustomManager UserManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().GetUserManager<UserCustomManager>();
-            }
+            _userManager = userManager;
         }
 
         public ActionResult Index(int? id)
         {
             var model = new ProjectViewModel();
-            var user = UserManager.FindByEmailAsync(HttpContext.User.Identity.Name);
+            var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
             // todo: temp code here
             int departmentId = 1;
             if (user.Result != null)
             {
                 departmentId = user.Result.Department == null ? 1 : user.Result.Department.Id;
             }
-            var availableProjects = _projectProcessor.GetAllProjectsInDepartment(departmentId);
 
-            var availableProfessors = UserManager.Users
+            var availableProjects = _projectProcessor.GetAllProjectsInDepartment(user.Result.Department.Id);
+
+            var availableProfessors = _userManager.Users
                 .Where(x => x.FacultyRole.Id == (int)CommonHelper.FacultyRole.Professor)
                 .Where(x => x.Department.Id == departmentId).ToList();
 
             //todo: this should be take into a different controller
             var pageSize = id == null ? 5 : id.Value;
-            var pagedList = new PagedList<Project>(availableProjects, 1, pageSize);
+            var pagedList = new PagedList<Project>(user.Result.Projects, 1, pageSize);
 
             model.AvailableProfessors = availableProfessors;
             model.AvailableProjects = pagedList;
@@ -61,8 +58,7 @@ namespace Libellus.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddProject(ProjectViewModel model)
         {
-            var user = UserManager.FindByEmailAsync(HttpContext.User.Identity.Name);
-
+            var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
             var proj = new Project();
             proj.CreatedDate = DateTime.Now;
             proj.ModifiedDate = DateTime.Now;
@@ -71,9 +67,7 @@ namespace Libellus.Controllers
             proj.Progress = 0;
             proj.Description = model.Description;
             proj.AddedBy = user.Result.UserName;
-            //proj.Department.Id = user.Result.Department.Id;
-            //proj.UserId = user.Result.Id;
-            //user.Result.Projects.Add(proj);
+            //proj.DepartmentId = user.Result.Department.Id;
 
             _projectProcessor.CreateNewProject(proj);
             return RedirectToAction("Index", "Project");
@@ -111,9 +105,9 @@ namespace Libellus.Controllers
 
         public ActionResult ViewProject(int id)
         {
-            var user = UserManager.FindByEmailAsync(HttpContext.User.Identity.Name);
-            var projectToView = _projectProcessor.GetAllProjectsInDepartment(user.Result.Department.Id).FirstOrDefault(x => x.Id == id);
-
+            var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
+            //var projectToView = _projectProcessor.GetAllProjectsInDepartment(user.Result.Department.Id).FirstOrDefault(x => x.Id == id);
+            var projectToView = user.Result.Projects.FirstOrDefault(x => x.Id == id);
             var model = new ProjectViewModel();
             model.Name = projectToView.Name;
             model.Description = projectToView.Description;
@@ -124,13 +118,13 @@ namespace Libellus.Controllers
 
         public PartialViewResult PagedListResult(int? page)
         {
-            var user = UserManager.FindByEmailAsync(HttpContext.User.Identity.Name);
+            var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
 
-            var availableProjects = _projectProcessor.GetAllProjectsInDepartment(user.Result.Department.Id);
+            //var availableProjects = _projectProcessor.GetAllProjectsInDepartment(user.Result.Department.Id);
 
             var pageNumber = page ?? 1;
             var pageSize = 5;
-            var pagedList = new PagedList<Project>(availableProjects, pageNumber, pageSize);
+            var pagedList = new PagedList<Project>(user.Result.Projects, pageNumber, pageSize);
 
             var partialToRender = "_ProfessorProjectPartial";
             var model = new ProjectViewModel();
@@ -142,7 +136,7 @@ namespace Libellus.Controllers
 
         public ActionResult AddProjectView()
         {
-            var user = UserManager.FindByEmailAsync(HttpContext.User.Identity.Name);
+            var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
             var model = new ProjectViewModel();
             model.User = user.Result;
             return View("AddProjectView", model);

@@ -43,14 +43,12 @@ D:\Projects\Personal\GitHub\libellus\Libellus.BusinessCore\bin\Debug\Libellus.Co
 D:\Projects\Personal\GitHub\libellus\Libellus.BusinessCore\bin\Debug\Libellus.DataAccess.dll
 D:\Projects\Personal\GitHub\libellus\Libellus.BusinessCore\bin\Debug\Microsoft.AspNet.Identity.Core.dll
 D:\Projects\Personal\GitHub\libellus\Libellus.BusinessCore\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
-D:\Projects\Personal\GitHub\libellus\Libellus.BusinessCore\bin\Debug\Ninject.dll
 D:\Projects\Personal\GitHub\libellus\Libellus.BusinessCore\bin\Debug\Libellus.CommonConcerns.pdb
 D:\Projects\Personal\GitHub\libellus\Libellus.BusinessCore\bin\Debug\Libellus.DataAccess.pdb
 D:\Projects\Personal\GitHub\libellus\Libellus.BusinessCore\bin\Debug\EntityFramework.xml
 D:\Projects\Personal\GitHub\libellus\Libellus.BusinessCore\bin\Debug\EntityFramework.SqlServer.xml
 D:\Projects\Personal\GitHub\libellus\Libellus.BusinessCore\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 D:\Projects\Personal\GitHub\libellus\Libellus.BusinessCore\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
-D:\Projects\Personal\GitHub\libellus\Libellus.BusinessCore\bin\Debug\Ninject.xml
 D:\Projects\Personal\GitHub\libellus\Libellus.BusinessCore\obj\Debug\Libellus.BusinessCore.csprojResolveAssemblyReference.cache
 D:\Projects\Personal\GitHub\libellus\Libellus.BusinessCore\obj\Debug\Libellus.BusinessCore.dll
 D:\Projects\Personal\GitHub\libellus\Libellus.BusinessCore\obj\Debug\Libellus.BusinessCore.pdb

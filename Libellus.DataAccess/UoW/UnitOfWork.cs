@@ -13,14 +13,14 @@ namespace Libellus.DataAccess.UoW
         private ITaskRepository _taskRepository;
         private IFacultyRoleRepository _facultyRoleRepository;
 
-        public UnitOfWork(IObjectContextAdapter dbContext,
+        public UnitOfWork(LibellusDbContext dbContext,
             IFacultyRepository facultyRepository,
             IDepartmentRepository departmentRepository,
             IProjectRepository projectRepository,
             ITaskRepository taskRepository,
             IFacultyRoleRepository facultyRoleRepository)
         {
-            _dbContext = (LibellusDbContext)dbContext;
+            _dbContext = dbContext;
 
             _facultyRepository = facultyRepository;
             _departmentRepository = departmentRepository;

@@ -2,7 +2,6 @@
 using Libellus.DataAccess.Repositories.Interface;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 
 namespace Libellus.DataAccess.Repositories.Implementation
@@ -15,9 +14,9 @@ namespace Libellus.DataAccess.Repositories.Implementation
             get { return DbContext.Set<T>(); }
         }
 
-        public BaseRepository(IObjectContextAdapter dbContext)
+        public BaseRepository(LibellusDbContext dbContext)
         {
-            DbContext = (LibellusDbContext)dbContext;
+            DbContext = dbContext;
         }
 
         public List<T> GetAll()

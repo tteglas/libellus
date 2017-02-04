@@ -2,3 +2,7 @@ D:\Projects\Personal\Degree\Libellus\Libellus.CommonConcerns\bin\Debug\Libellus.
 D:\Projects\Personal\Degree\Libellus\Libellus.CommonConcerns\bin\Debug\Libellus.CommonConcerns.pdb
 D:\Projects\Personal\Degree\Libellus\Libellus.CommonConcerns\obj\Debug\Libellus.CommonConcerns.dll
 D:\Projects\Personal\Degree\Libellus\Libellus.CommonConcerns\obj\Debug\Libellus.CommonConcerns.pdb
+D:\Projects\Personal\GitHub\libellus\Libellus.CommonConcerns\bin\Debug\Libellus.CommonConcerns.dll
+D:\Projects\Personal\GitHub\libellus\Libellus.CommonConcerns\bin\Debug\Libellus.CommonConcerns.pdb
+D:\Projects\Personal\GitHub\libellus\Libellus.CommonConcerns\obj\Debug\Libellus.CommonConcerns.dll
+D:\Projects\Personal\GitHub\libellus\Libellus.CommonConcerns\obj\Debug\Libellus.CommonConcerns.pdb

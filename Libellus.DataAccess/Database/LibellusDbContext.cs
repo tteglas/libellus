@@ -29,7 +29,7 @@ namespace Libellus.DataAccess.Database
             //modelBuilder.Entity<User>().HasMany(x => x.Projects)
             //    .WithRequired().HasForeignKey(x => x.UserId);
             //modelBuilder.Entity<Department>().HasRequired(x => x.User).WithMany(x => x.Department);
-            modelBuilder.Entity<User>().HasOptional(x => x.Projects).WithOptionalPrincipal();
+            //modelBuilder.Entity<User>().HasOptional(x => x.Projects).WithOptionalPrincipal();
         }
 
         public DbSet<Faculty> Faculties { get; set; }

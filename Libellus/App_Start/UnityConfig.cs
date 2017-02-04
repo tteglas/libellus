@@ -1,6 +1,16 @@
 using System;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
+using Libellus.DataAccess.Database;
+using Libellus.BusinessCore.Processors.Interface;
+using Libellus.BusinessCore.Processors.Implementation;
+using Libellus.DataAccess.Repositories.Implementation;
+using Libellus.DataAccess.Repositories.Interface;
+using Libellus.DataAccess.UoW;
+using System.Data.Entity.Infrastructure;
+using Authentication.Managers;
+using System.Web;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace Libellus.App_Start
 {
@@ -37,6 +47,35 @@ namespace Libellus.App_Start
 
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
+            container.RegisterType<LibellusDbContext>(new PerRequestLifetimeManager());
+
+            container.RegisterType<UserCustomManager>(new InjectionFactory(c => CreateUserCustomManager()));
+            container.RegisterType<SignInCustomManager>(new InjectionFactory(c => CreateSignInManager()));
+
+            container.RegisterType<IBaseProcessor, BaseProcessor>();
+            container.RegisterType<IDepartmentProcessor, DepartmentProcessor>();
+            container.RegisterType<IFacultyProcessor, FacultyProcessor>();
+            container.RegisterType<IProjectProcessor, ProjectProcessor>();
+
+            //container.RegisterType<IBaseRepository, BaseRepository>();
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
+            container.RegisterType<IFacultyRepository, FacultyRepository>();
+            container.RegisterType<IDepartmentRepository, DepartmentRepository>();
+            container.RegisterType<IProjectRepository, ProjectRepository>();
+            container.RegisterType<ITaskRepository, TaskRepository>();
+            container.RegisterType<IFacultyRoleRepository, FacultyRoleRepository>();
+        }
+
+        private static UserCustomManager CreateUserCustomManager()
+        {
+            var manager = HttpContext.Current.GetOwinContext().GetUserManager<UserCustomManager>();
+            manager.EmailService = new EmailService();
+            return manager;
+        }
+
+        private static SignInCustomManager CreateSignInManager()
+        {
+            return HttpContext.Current.GetOwinContext().GetUserManager<SignInCustomManager>();
         }
     }
 }

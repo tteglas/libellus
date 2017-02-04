@@ -245,8 +245,6 @@ D:\Projects\Personal\GitHub\libellus\Libellus\bin\System.Web.WebPages.dll
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\System.Web.WebPages.Razor.dll
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\WebActivatorEx.dll
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\WebGrease.dll
-D:\Projects\Personal\GitHub\libellus\Libellus\bin\Ninject.dll
-D:\Projects\Personal\GitHub\libellus\Libellus\bin\Microsoft.Practices.ServiceLocation.dll
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\Authentication.pdb
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\Libellus.BusinessCore.pdb
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\Libellus.CommonConcerns.pdb
@@ -281,4 +279,3 @@ D:\Projects\Personal\GitHub\libellus\Libellus\bin\Microsoft.Owin.Security.OAuth.
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\Microsoft.Owin.Security.Google.xml
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\Microsoft.Owin.Security.Twitter.xml
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\Projects\Personal\GitHub\libellus\Libellus\bin\Ninject.xml
