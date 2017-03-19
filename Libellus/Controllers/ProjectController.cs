@@ -1,5 +1,4 @@
-﻿using Authentication.Managers;
-using Libellus.BusinessCore.Processors.Interface;
+﻿using Libellus.BusinessCore.Processors.Interface;
 using Libellus.CommonConcerns.Constants;
 using Libellus.DataAccess.Domain;
 using Libellus.Models;
@@ -9,48 +8,59 @@ using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Libellus.Managers;
 
 namespace Libellus.Controllers
 {
     [Authorize]
     public class ProjectController : Controller
     {
-        private IProjectProcessor _projectProcessor;
-        private UserCustomManager _userManager;
+        #region Private Members
+        private readonly IProjectProcessor _projectProcessor;
+        private readonly UserCustomManager _userManager;
+        #endregion
 
-
+        #region Constructor
         public ProjectController(IProjectProcessor projectProcessor,
             UserCustomManager userManager)
         {
             _projectProcessor = projectProcessor;
             _userManager = userManager;
         }
+        #endregion
 
+        #region Actions
         public ActionResult Index(int? id)
         {
             var model = new ProjectViewModel();
             var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
-            // todo: temp code here
-            int departmentId = 1;
-            if (user.Result != null)
-            {
-                departmentId = user.Result.Department == null ? 1 : user.Result.Department.Id;
-            }
 
-            var availableProjects = _projectProcessor.GetAllProjectsInDepartment(user.Result.Department.Id);
+            var allDepartmentProjects = _projectProcessor.GetAllProjectsInDepartment(user.Result.Department.Id).ToList();
+            var allInProgressProject =
+                allDepartmentProjects.Where(
+                    x => x.Status == CommonHelper.ReadValueForProjectStatus(CommonHelper.ProjectStatus.InProgress));
 
-            var availableProfessors = _userManager.Users
+            var departmentProfessors = _userManager.Users
                 .Where(x => x.FacultyRole.Id == (int)CommonHelper.FacultyRole.Professor)
-                .Where(x => x.Department.Id == departmentId).ToList();
+                .Where(x => x.Department.Id == user.Result.Department.Id).ToList();
 
-            //todo: this should be take into a different controller
-            var pageSize = id == null ? 5 : id.Value;
-            var pagedList = new PagedList<Project>(availableProjects, 1, pageSize);
+            //todo: this should be take into a different method ?
+            var pageSize = id ?? 5;
 
-            model.AvailableProfessors = availableProfessors;
-            model.AvailableProjects = pagedList;
+            model.AvailableProfessors = departmentProfessors;
+            model.AvailableProjects = new PagedList<Project>(allDepartmentProjects, 1, pageSize);
+            model.InProgressProjects = new PagedList<Project>(allInProgressProject, 1, pageSize);
             model.User = user.Result;
-
+            
+            // View to return - based on Faculty Role ( student / professor)
+            if (user.Result.FacultyRole.Id == (int) CommonHelper.FacultyRole.Professor)
+            {
+                return View("ProfessorIndex", model);
+            }
+            if(user.Result.FacultyRole.Id == (int)CommonHelper.FacultyRole.Student)
+            {
+                return View("StudentIndex", model);
+            }
             return View(model);
         }
 
@@ -142,6 +152,8 @@ namespace Libellus.Controllers
             model.User = user.Result;
             return View("AddProjectView", model);
         }
+
+        #endregion
 
         #endregion
     }

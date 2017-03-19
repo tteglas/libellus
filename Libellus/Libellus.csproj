@@ -249,11 +249,14 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\progressbar.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="404.html" />
+    <Content Include="500.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -292,8 +295,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Shared\_ViewProjectPartial.cshtml" />
-    <Content Include="Views\Shared\_ProfessorProjectPartial.cshtml" />
-    <Content Include="Views\Shared\_StudentProjectPartial.cshtml" />
+    <Content Include="Views\Project\ProfessorIndex.cshtml" />
+    <Content Include="Views\Project\StudentIndex.cshtml" />
     <Content Include="Views\Shared\_ApprovalProgressTablePartial.cshtml" />
     <Content Include="Views\Project\ProfWaitingApprovalView.cshtml" />
     <Content Include="Views\Project\ProfInProgressView.cshtml" />
@@ -307,10 +310,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Authentication\Authentication.csproj">
-      <Project>{5912c307-0857-44d3-b545-003eae97c469}</Project>
-      <Name>Authentication</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Libellus.BusinessCore\Libellus.BusinessCore.csproj">
       <Project>{0b56ecbe-2a0d-4719-8e6c-df0f96ba35c2}</Project>
       <Name>Libellus.BusinessCore</Name>

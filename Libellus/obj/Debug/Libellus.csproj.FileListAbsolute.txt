@@ -208,7 +208,6 @@ D:\Projects\Personal\GitHub\libellus\Libellus\bin\Libellus.dll.config
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\Libellus.dll
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\Libellus.pdb
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\Antlr3.Runtime.dll
-D:\Projects\Personal\GitHub\libellus\Libellus\bin\Authentication.dll
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\EntityFramework.dll
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\EntityFramework.SqlServer.dll
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\Libellus.BusinessCore.dll
@@ -245,7 +244,6 @@ D:\Projects\Personal\GitHub\libellus\Libellus\bin\System.Web.WebPages.dll
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\System.Web.WebPages.Razor.dll
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\WebActivatorEx.dll
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\WebGrease.dll
-D:\Projects\Personal\GitHub\libellus\Libellus\bin\Authentication.pdb
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\Libellus.BusinessCore.pdb
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\Libellus.CommonConcerns.pdb
 D:\Projects\Personal\GitHub\libellus\Libellus\bin\Antlr3.Runtime.pdb

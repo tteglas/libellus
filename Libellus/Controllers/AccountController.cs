@@ -6,10 +6,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Libellus.Models;
-using Authentication.Managers;
 using Libellus.DataAccess.Domain;
 using Libellus.BusinessCore.Processors.Interface;
 using System.Collections.Generic;
+using Libellus.Managers;
 
 namespace Libellus.Controllers
 {

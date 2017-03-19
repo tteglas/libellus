@@ -1,7 +1,7 @@
 ﻿using System;
-using Authentication.Managers;
 using Libellus.DataAccess.Database;
 using Libellus.DataAccess.Domain;
+using Libellus.Managers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;

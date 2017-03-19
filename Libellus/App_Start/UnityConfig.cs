@@ -8,9 +8,9 @@ using Libellus.DataAccess.Repositories.Implementation;
 using Libellus.DataAccess.Repositories.Interface;
 using Libellus.DataAccess.UoW;
 using System.Data.Entity.Infrastructure;
-using Authentication.Managers;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
+using Libellus.Managers;
 
 namespace Libellus.App_Start
 {

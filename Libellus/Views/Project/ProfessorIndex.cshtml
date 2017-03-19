@@ -1,0 +1,71 @@
+﻿@using Libellus.Models;
+@using PagedList.Mvc;
+
+@model ProjectViewModel
+
+<div class="container-fluid">
+    @if (Model.InProgressProjects.Any())
+        {
+            <div class="row">
+                There are projects in progress !
+            </div>
+        }
+    <h3>Choose your action:</h3>
+    <div class="row">
+        <div class="col-md-2">
+            @Html.ActionLink("New Projects", "GetProfessorProjects", "Project", new { requestedApproval = true },
+                new { @class = "btn btn-default" })
+        </div>
+
+        <div class="col-md-2">
+            @Html.ActionLink("In Progress", "GetProfessorProjects", "Project", new { requestedApproval = false },
+                new { @class = "btn btn-default" })
+        </div>
+
+        <div class="col-md-2">
+            @Html.ActionLink("Add project", "AddProjectView", "Project", null, new { @class = "btn btn-success" })
+        </div>
+
+        <div class="col-md-4">
+            <div id="container" style="margin: 20px; width: 200px; height: 100px"></div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="@Url.Content("~/Scripts/progressbar.js")"></script>
+    <script>
+        // progressbar.js@1.0.0 version is used
+        // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
+
+        var bar = new ProgressBar.SemiCircle(container, {
+            strokeWidth: 8,
+            trailColor: '#eee',
+            trailWidth: 1,
+            easing: 'easeInOut',
+            duration: 1400,
+            text: {
+                alignToBottom: true
+            },
+            from: { color: '#fb4b4b' },
+            to: { color: '#008744' },
+            // Set default step function for all animate calls
+            step: (state, bar) => {
+                bar.path.setAttribute('stroke', state.color);
+                var value = Math.round(bar.value() * 100);
+                if (value === 0) {
+                    bar.setText('0%');
+                }
+                else {
+                    bar.setText(value + "%");
+                }
+                bar.text.style.color = state.color;
+            }
+        });
+        bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+        bar.text.style.fontSize = '2rem';
+
+        bar.animate(1);  // Number from 0.0 to 1.0
+    </script>
+}
