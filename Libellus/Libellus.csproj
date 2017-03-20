@@ -302,6 +302,7 @@
     <Content Include="Views\Project\ProfInProgressView.cshtml" />
     <Content Include="Views\Project\ProjectDetailsView.cshtml" />
     <Content Include="Views\Project\AddProjectView.cshtml" />
+    <Content Include="Views\Shared\_PaginatedProjects.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

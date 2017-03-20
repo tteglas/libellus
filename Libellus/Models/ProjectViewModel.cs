@@ -16,11 +16,10 @@ namespace Libellus.Models
         public decimal Progress { get; set; }
         public string Status { get; set; }
         public string SelectedProfessorId { get; set; }
-        public PagedList<Project> AvailableProjects { get; set; }
-        public PagedList<Project> InProgressProjects { get; set; }
+        public PagedList<Project> AllProjects { get; set; }
+        public PagedList<Project> UserProjects { get; set; }
+        public PagedList<Project> UserInProgressProjects { get; set; }
         public List<User> AvailableProfessors { get; set; }
-
-        public bool ProcessedDataOnModel { get; set; }
 
         public User User { get; set; }
     }

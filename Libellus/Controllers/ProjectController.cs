@@ -36,32 +36,32 @@ namespace Libellus.Controllers
             var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
 
             var allDepartmentProjects = _projectProcessor.GetAllProjectsInDepartment(user.Result.Department.Id).ToList();
-            var allInProgressProject =
-                allDepartmentProjects.Where(
-                    x => x.Status == CommonHelper.ReadValueForProjectStatus(CommonHelper.ProjectStatus.InProgress));
+            var allInProgressProject = allDepartmentProjects.Where(x => x.Status == CommonHelper.ReadValueForProjectStatus(CommonHelper.ProjectStatus.InProgress));
+            var userProjects = allDepartmentProjects.Where(x => x.User.Id == user.Result.Id).ToList();
+            var userInProgressProjects = allDepartmentProjects.Where(x => x.Status == CommonHelper.ReadValueForProjectStatus(CommonHelper.ProjectStatus.InProgress)).Where(x => x.User.Id == user.Result.Id);
 
             var departmentProfessors = _userManager.Users
                 .Where(x => x.FacultyRole.Id == (int)CommonHelper.FacultyRole.Professor)
                 .Where(x => x.Department.Id == user.Result.Department.Id).ToList();
 
             //todo: this should be take into a different method ?
-            var pageSize = id ?? 5;
+            var pageNumber = id ?? 1;
 
             model.AvailableProfessors = departmentProfessors;
-            model.AvailableProjects = new PagedList<Project>(allDepartmentProjects, 1, pageSize);
-            model.InProgressProjects = new PagedList<Project>(allInProgressProject, 1, pageSize);
+            model.AllProjects = new PagedList<Project>(allDepartmentProjects, pageNumber, 5);
+            model.UserProjects = new PagedList<Project>(userProjects, pageNumber, 5);
+            model.UserInProgressProjects = new PagedList<Project>(userInProgressProjects, pageNumber, 5);
             model.User = user.Result;
             
             // View to return - based on Faculty Role ( student / professor)
-            if (user.Result.FacultyRole.Id == (int) CommonHelper.FacultyRole.Professor)
+            switch (user.Result.FacultyRole.Id)
             {
-                return View("ProfessorIndex", model);
+                case (int) CommonHelper.FacultyRole.Professor:
+                    return View("ProfessorIndex", model);
+                case (int)CommonHelper.FacultyRole.Student:
+                    return View("StudentIndex", model);
+                default: return View(model);
             }
-            if(user.Result.FacultyRole.Id == (int)CommonHelper.FacultyRole.Student)
-            {
-                return View("StudentIndex", model);
-            }
-            return View(model);
         }
 
         [HttpPost]
@@ -84,47 +84,30 @@ namespace Libellus.Controllers
             return RedirectToAction("Index", "Project");
         }
 
-        #region Partial views
-
-        public ActionResult GetProfessorProjects(int? page, bool requestedApproval)
-        {
-            var model = new ProjectViewModel();
-            var pageNumber = page ?? 1;
-            var pageSize = 5;
-            PagedList<Project> pagedList;
-            var viewToReturn = string.Empty;
-
-            ViewBag.RequestedApproval = requestedApproval;
-
-            if (requestedApproval)
-            {
-                var waitingApproval = _projectProcessor.GetAllWaitingApproval();
-                pagedList = new PagedList<Project>(waitingApproval, pageNumber, pageSize);
-                viewToReturn = "ProfWaitingApprovalView";
-            }
-            else
-            {
-                var inProgress = _projectProcessor.GetAllInProgress();
-                pagedList = new PagedList<Project>(inProgress, pageNumber, pageSize);
-                viewToReturn = "ProfInProgressView";
-            }
-
-            model.AvailableProjects = pagedList;
-            model.ProcessedDataOnModel = true;
-            return View(viewToReturn, model);
-        }
-
         public ActionResult ViewProject(int id)
         {
             var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
-            //var projectToView = _projectProcessor.GetAllProjectsInDepartment(user.Result.Department.Id).FirstOrDefault(x => x.Id == id);
+            var projectToView = _projectProcessor.GetAllProjectsInDepartment(user.Result.Department.Id).FirstOrDefault(x => x.Id == id);
             //var projectToView = user.Result.Projects.FirstOrDefault(x => x.Id == id);
             var model = new ProjectViewModel();
-            //model.Name = projectToView.Name;
-            //model.Description = projectToView.Description;
-            model.ProcessedDataOnModel = true;
+            model.Name = projectToView.Name;
+            model.Description = projectToView.Description;
 
             return View("ProjectDetailsView", model);
+        }
+
+        #region Partial views
+
+        public ActionResult GetPaginatedProjects(int? page)
+        {
+            var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
+            var pageNumber = page ?? 1;
+            const int pageSize = 5;
+
+            var allProjects = _projectProcessor.GetAllProjectsInDepartment(user.Result.DepartmentId);
+            var pagedList = new PagedList<Project>(allProjects, pageNumber, pageSize);
+
+            return View("_PaginatedProjects", pagedList);
         }
 
         public PartialViewResult PagedListResult(int? page)
@@ -139,13 +122,13 @@ namespace Libellus.Controllers
 
             var partialToRender = "_ProfessorProjectPartial";
             var model = new ProjectViewModel();
-            model.AvailableProjects = pagedList;
+            model.AllProjects = pagedList;
             //model.User = user.Result; todo: look this up
 
             return PartialView(partialToRender, model);
         }
 
-        public ActionResult AddProjectView()
+        public ActionResult AddProject()
         {
             var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
             var model = new ProjectViewModel();

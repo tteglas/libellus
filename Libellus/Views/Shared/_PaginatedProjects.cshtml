@@ -1,10 +1,6 @@
-﻿@using Libellus.Models;
-@using PagedList.Mvc;
+﻿@using PagedList.Mvc
+@model PagedList.PagedList<Libellus.DataAccess.Domain.Project>
 
-@model ProjectViewModel
-
-@*@if (Model.ProcessedDataOnModel)
-    {*@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -29,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var proj in Model.AllProjects)
+                    @foreach (var proj in Model)
                     {
                         <tr>
                             <td>
@@ -48,21 +44,13 @@
                                 @proj.CreatedDate
                             </td>
                             <td>
-                                @*@Ajax.ActionLink("View", "ViewProject", "Project", new { id = proj.Id },
-                                    new AjaxOptions
-                                    {
-                                        HttpMethod = "GET",
-                                        InsertionMode = InsertionMode.Replace,
-                                        UpdateTargetId = "ViewProjectContainer"
-                                    })*@
                                 @Html.ActionLink("View", "ViewProject", "Project", new { id = proj.Id }, null)
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
-            @Html.PagedListPager(Model.AllProjects, page => Url.Action("GetPaginatedProjects", new { page }))
+            @Html.PagedListPager(Model, page => Url.Action("GetPaginatedProjects", new { page }))
         </div>
-    </div>
+    </div>    
 </div>
-@*}*@

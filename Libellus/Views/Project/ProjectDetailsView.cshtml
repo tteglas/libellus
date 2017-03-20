@@ -7,34 +7,31 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model.ProcessedDataOnModel)
-{
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>
-                    Name
-                </h2>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>
+                Name
+            </h2>
+            <h4>
+                @Model.Name
+            </h4>
+            <h3>
+                Description
+            </h3>
+            <p>
+                @Model.Description
+            </p>
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    ×
+                </button>
                 <h4>
-                    @Model.Name
-                </h4>
-                <h3>
-                    Description
-                </h3>
-                <p>
-                    @Model.Description
-                </p>
-            </div>
-            <div class="col-md-6">
-                <div class="alert alert-success alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                        ×
-                    </button>
-                    <h4>
-                        Alert!
-                    </h4> <strong>Warning!</strong> Best check yo self, you're not looking too good. <a href="#" class="alert-link">alert link</a>
-                </div>
+                    Alert!
+                </h4> <strong>Warning!</strong> Best check yo self, you're not looking too good. <a href="#" class="alert-link">alert link</a>
             </div>
         </div>
     </div>
-}
+</div>
