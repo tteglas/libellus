@@ -6,6 +6,11 @@ namespace Libellus.DataAccess.Domain
 {
     public class Project
     {
+        public Project()
+        {
+            Tasks = new HashSet<Task>();
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 

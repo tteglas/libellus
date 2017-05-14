@@ -4,12 +4,9 @@ using Libellus.DataAccess.Domain;
 
 namespace Libellus.DataAccess.Database
 {
-    public class LibellusDbContext : IdentityDbContext<Domain.User>
+    public class LibellusDbContext : IdentityDbContext<User>
     {
-        public LibellusDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
+        public LibellusDbContext() : base("DefaultConnection", throwIfV1Schema: false) { }
 
         public static LibellusDbContext Create()
         {
@@ -37,6 +34,5 @@ namespace Libellus.DataAccess.Database
         public DbSet<Department> Departments { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Task> Tasks { get; set; }
-        public DbSet<FacultyRole> FacultyRoles { get; set; }
     }
 }

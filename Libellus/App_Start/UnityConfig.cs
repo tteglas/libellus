@@ -11,6 +11,7 @@ using System.Data.Entity.Infrastructure;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using Libellus.Managers;
+using Microsoft.AspNet.Identity;
 
 namespace Libellus.App_Start
 {
@@ -45,25 +46,26 @@ namespace Libellus.App_Start
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
 
-            // TODO: Register your types here
-            // container.RegisterType<IProductRepository, ProductRepository>();
+            // Register types here
             container.RegisterType<LibellusDbContext>(new PerRequestLifetimeManager());
+            //container.RegisterType<RoleManager<>>()
 
             container.RegisterType<UserCustomManager>(new InjectionFactory(c => CreateUserCustomManager()));
             container.RegisterType<SignInCustomManager>(new InjectionFactory(c => CreateSignInManager()));
+            container.RegisterType<RoleCustomManager>(new InjectionFactory(c => CreateRoleManager()));
+
 
             container.RegisterType<IBaseProcessor, BaseProcessor>();
             container.RegisterType<IDepartmentProcessor, DepartmentProcessor>();
             container.RegisterType<IFacultyProcessor, FacultyProcessor>();
             container.RegisterType<IProjectProcessor, ProjectProcessor>();
 
-            //container.RegisterType<IBaseRepository, BaseRepository>();
             container.RegisterType<IUnitOfWork, UnitOfWork>();
             container.RegisterType<IFacultyRepository, FacultyRepository>();
             container.RegisterType<IDepartmentRepository, DepartmentRepository>();
             container.RegisterType<IProjectRepository, ProjectRepository>();
             container.RegisterType<ITaskRepository, TaskRepository>();
-            container.RegisterType<IFacultyRoleRepository, FacultyRoleRepository>();
+            //container.RegisterType<IFacultyRoleRepository, FacultyRoleRepository>();
         }
 
         private static UserCustomManager CreateUserCustomManager()
@@ -76,6 +78,11 @@ namespace Libellus.App_Start
         private static SignInCustomManager CreateSignInManager()
         {
             return HttpContext.Current.GetOwinContext().GetUserManager<SignInCustomManager>();
+        }
+
+        private static RoleCustomManager CreateRoleManager()
+        {
+            return HttpContext.Current.GetOwinContext().Get<RoleCustomManager>();
         }
     }
 }

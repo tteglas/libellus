@@ -16,9 +16,9 @@ namespace Libellus.BusinessCore.Processors.Implementation
             return UnitOfWork.FacultyRepository.GetAll();
         }
 
-        public List<FacultyRole> GetAllFacultyRoles()
-        {
-            return UnitOfWork.FacultyRoleRepository.GetAll();
-        }
+        //public List<FacultyRole> GetAllFacultyRoles()
+        //{
+        //    return UnitOfWork.FacultyRoleRepository.GetAll();
+        //}
     }
 }

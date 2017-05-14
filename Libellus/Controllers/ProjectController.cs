@@ -8,7 +8,11 @@ using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using System.Web.UI;
+using Libellus.DataAccess.UoW;
 using Libellus.Managers;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Libellus.Controllers
 {
@@ -35,13 +39,12 @@ namespace Libellus.Controllers
             var model = new ProjectViewModel();
             var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
 
-            var allDepartmentProjects = _projectProcessor.GetAllProjectsInDepartment(user.Result.Department.Id).ToList();
-            var allInProgressProject = allDepartmentProjects.Where(x => x.Status == CommonHelper.ReadValueForProjectStatus(CommonHelper.ProjectStatus.InProgress));
+            var allDepartmentProjects = _projectProcessor.GetAllProjectsInDepartment(user.Result.Department.Id).ToList();            
             var userProjects = allDepartmentProjects.Where(x => x.User.Id == user.Result.Id).ToList();
             var userInProgressProjects = allDepartmentProjects.Where(x => x.Status == CommonHelper.ReadValueForProjectStatus(CommonHelper.ProjectStatus.InProgress)).Where(x => x.User.Id == user.Result.Id);
 
             var departmentProfessors = _userManager.Users
-                .Where(x => x.FacultyRole.Id == (int)CommonHelper.FacultyRole.Professor)
+                .Where(x => x.Roles.FirstOrDefault(role => role.RoleId == CommonHelper.ROLE_Professor).RoleId == CommonHelper.ROLE_Professor)
                 .Where(x => x.Department.Id == user.Result.Department.Id).ToList();
 
             //todo: this should be take into a different method ?
@@ -54,14 +57,15 @@ namespace Libellus.Controllers
             model.User = user.Result;
             
             // View to return - based on Faculty Role ( student / professor)
-            switch (user.Result.FacultyRole.Id)
+            if (User.IsInRole(CommonHelper.ROLE_Professor))
             {
-                case (int) CommonHelper.FacultyRole.Professor:
-                    return View("ProfessorIndex", model);
-                case (int)CommonHelper.FacultyRole.Student:
-                    return View("StudentIndex", model);
-                default: return View(model);
+                return View("ProfessorIndex", model);
             }
+            if (User.IsInRole(CommonHelper.ROLE_Student))
+            {
+                return View("StudentIndex", model);
+            }
+            return View(model);
         }
 
         [HttpPost]
@@ -80,6 +84,7 @@ namespace Libellus.Controllers
             proj.DepartmentId = user.Result.Department.Id;
             proj.UserId = user.Result.Id;
 
+            user.Result.Projects.Add(proj);
             _projectProcessor.CreateNewProject(proj);
             return RedirectToAction("Index", "Project");
         }
@@ -88,12 +93,29 @@ namespace Libellus.Controllers
         {
             var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
             var projectToView = _projectProcessor.GetAllProjectsInDepartment(user.Result.Department.Id).FirstOrDefault(x => x.Id == id);
-            //var projectToView = user.Result.Projects.FirstOrDefault(x => x.Id == id);
+            if (projectToView == null)
+                return View("Error");
+            
             var model = new ProjectViewModel();
+            model.Id = projectToView.Id;
             model.Name = projectToView.Name;
             model.Description = projectToView.Description;
 
             return View("ProjectDetailsView", model);
+        }
+
+        public ActionResult Subscribe(int id)
+        {
+            var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
+            var project = _projectProcessor.GetAllProjects().FirstOrDefault(x => x.Id == id);
+
+            if (project != null && user.Result != null)
+            {
+                _projectProcessor.UnSubscribe(project);
+                project.User = user.Result;
+                _projectProcessor.Subscribe(project);
+            }
+            return View("");
         }
 
         #region Partial views
@@ -128,7 +150,7 @@ namespace Libellus.Controllers
             return PartialView(partialToRender, model);
         }
 
-        public ActionResult AddProject()
+        public ActionResult AddProjectView()
         {
             var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
             var model = new ProjectViewModel();

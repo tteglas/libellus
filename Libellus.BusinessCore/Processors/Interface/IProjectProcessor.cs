@@ -7,7 +7,13 @@ namespace Libellus.BusinessCore.Processors.Interface
     {
         void CreateNewProject(Project model);
 
-        //IEnumerable<Project> GetAllProjectsInDepartment(string user);
+        void Subscribe(Project project);
+
+        void UnSubscribe(Project project);
+
+        IEnumerable<Project> GetAllProjects();
+
+            //IEnumerable<Project> GetAllProjectsInDepartment(string user);
         IEnumerable<Project> GetAllProjectsInDepartment(int departmentId);
 
         IEnumerable<Project> GetAllWaitingApproval();

@@ -158,12 +158,12 @@ namespace Libellus.Controllers
             model.FacultyRoles = new List<FacultyRoleViewModel>();
             model.Departments = new List<DepartmentViewModel>();
 
-            _facultyProcessor.GetAllFacultyRoles().ForEach(
-                x => model.FacultyRoles.Add(new FacultyRoleViewModel
-                {
-                    Id = x.Id,
-                    Type = x.Type
-                }));
+            //_facultyProcessor.GetAllFacultyRoles().ForEach(
+            //    x => model.FacultyRoles.Add(new FacultyRoleViewModel
+            //    {
+            //        Id = x.Id,
+            //        Type = x.Type
+            //    }));
 
             model.Faculties = _facultyProcessor.GetAllFaculties();
 
@@ -224,7 +224,6 @@ namespace Libellus.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    FacultyRoleId = model.SelectedFacultyRoleId,
                     DepartmentId = model.SelectedDepartmentId
                 };
 

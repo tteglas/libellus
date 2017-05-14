@@ -34,12 +34,19 @@
             I'm a:
         </label>
         <div class="col-md-10 radio">
-            @foreach (var item in Model.FacultyRoles)
+            @Html.DropDownListFor(x => x.UniversityRole, new SelectList(Roles.GetAllRoles()))
+            @*@Html.DropDownListFor(x => x.UniversityRole, new[]
+            {
+                new SelectListItem() {Text = "I am a vendor", Value = "Vendor"},
+                new SelectListItem() {Text = "I am a client", Value = "Client"}
+            }, "Pick a basket")*@
+            @*@foreach (var role in Roles.GetRolesForUser(Model.Email))
             {
                 <label>
-                    @Html.RadioButtonFor(x => x.SelectedFacultyRoleId, (int)item.Id, new { @id = item.Id }) @item.Type
+                    @Html.DropDownListFor(x => x.UniversityRole, new SelectList(Roles.GetRolesForUser(Model.Email)))
+                    @Html.RadioButtonFor(x => x.SelectedFacultyRoleId, (int) item.Id, new {@id = item.Id}) @role
                 </label>
-            }
+            }*@
         </div>
     </div>
     <div class="form-group">

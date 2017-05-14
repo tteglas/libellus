@@ -88,7 +88,6 @@
     <Compile Include="Database\LibellusDbContext.cs" />
     <Compile Include="Domain\Department.cs" />
     <Compile Include="Domain\Faculty.cs" />
-    <Compile Include="Domain\FacultyRole.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\Project.cs" />
     <Compile Include="Domain\Task.cs" />
@@ -97,13 +96,11 @@
     <Compile Include="Repositories\Implementation\BaseRepository.cs" />
     <Compile Include="Repositories\Implementation\DepartmentRepository.cs" />
     <Compile Include="Repositories\Implementation\FacultyRepository.cs" />
-    <Compile Include="Repositories\Implementation\FacultyRoleRepository.cs" />
     <Compile Include="Repositories\Implementation\ProjectRepository.cs" />
     <Compile Include="Repositories\Implementation\TaskRepository.cs" />
     <Compile Include="Repositories\Interface\IBaseRepository.cs" />
     <Compile Include="Repositories\Interface\IDepartmentRepository.cs" />
     <Compile Include="Repositories\Interface\IFacultyRepository.cs" />
-    <Compile Include="Repositories\Interface\IFacultyRoleRepository.cs" />
     <Compile Include="Repositories\Interface\IProjectRepository.cs" />
     <Compile Include="Repositories\Interface\ITaskRepository.cs" />
     <Compile Include="UoW\IUnitOfWork.cs" />

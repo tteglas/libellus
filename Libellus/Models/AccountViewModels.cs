@@ -92,7 +92,7 @@ namespace Libellus.Models
         public List<DepartmentViewModel> Departments { get; set; }
 
         [Display(Name = "Selected role")]
-        public int SelectedFacultyRoleId { get; set; }
+        public int UniversityRole { get; set; }
 
         public int SelectedFacultyId { get; set; }
 

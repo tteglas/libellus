@@ -5,6 +5,11 @@ namespace Libellus.DataAccess.Domain
 {
     public class Faculty
     {
+        public Faculty()
+        {
+            Departments = new HashSet<Department>();    
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 

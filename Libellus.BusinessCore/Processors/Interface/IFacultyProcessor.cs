@@ -6,6 +6,6 @@ namespace Libellus.BusinessCore.Processors.Interface
     public interface IFacultyProcessor : IBaseProcessor
     {
         List<Faculty> GetAllFaculties();
-        List<FacultyRole> GetAllFacultyRoles();
+        //List<FacultyRole> GetAllFacultyRoles();
     }
 }

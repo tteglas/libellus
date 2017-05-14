@@ -2,6 +2,9 @@
 {
     public class CommonHelper
     {
+        public const string ROLE_Professor = "Professor";
+        public const string ROLE_Student = "Student";
+
         public enum ProjectStatus
         {
             New,
@@ -15,10 +18,10 @@
             return projecStatus.ToString();
         }
 
-        public enum FacultyRole
+        public enum UniversityRole
         {
-            Professor = 1,
-            Student = 2
+            Professor,
+            Student
         }
     }
 }

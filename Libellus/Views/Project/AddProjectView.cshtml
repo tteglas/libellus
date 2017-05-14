@@ -22,7 +22,7 @@
                             </label>
                             @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
                         </div>
-                        @if (Model.User.FacultyRoleId == (int)CommonHelper.FacultyRole.Student)
+                        @if (User.IsInRole(CommonHelper.ROLE_Student))
                         {
                             <div class="form-group">
                                 <label for="selectedProfessor">

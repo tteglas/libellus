@@ -7,6 +7,10 @@ namespace Libellus.DataAccess.Repositories.Interface
     {
         List<T> GetAll();
 
+        void Attach(T entity);
+
+        void Detach(T entity);
+
         void Add(T entity);
 
         void Update(T entity);

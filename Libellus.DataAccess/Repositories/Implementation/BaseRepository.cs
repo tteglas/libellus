@@ -8,15 +8,22 @@ namespace Libellus.DataAccess.Repositories.Implementation
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        private readonly LibellusDbContext DbContext;
-        private IDbSet<T> DbSet
-        {
-            get { return DbContext.Set<T>(); }
-        }
+        private readonly LibellusDbContext _dbContext;
+        private IDbSet<T> DbSet => _dbContext.Set<T>();
 
         public BaseRepository(LibellusDbContext dbContext)
         {
-            DbContext = dbContext;
+            _dbContext = dbContext;
+        }
+
+        public void Attach(T entity)
+        {
+            DbSet.Attach(entity);
+        }
+
+        public void Detach(T entity)
+        {
+            _dbContext.Entry(entity).State = EntityState.Detached;
         }
 
         public List<T> GetAll()
@@ -37,12 +44,12 @@ namespace Libellus.DataAccess.Repositories.Implementation
 
         public void Update(T entity)
         {
-            DbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.Entry(entity).State = EntityState.Modified;
         }
 
         public void Save()
         {
-            DbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
     }
 }

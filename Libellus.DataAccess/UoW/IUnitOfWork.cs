@@ -14,6 +14,6 @@ namespace Libellus.DataAccess.UoW
 
         ITaskRepository TaskRepository { get; }
 
-        IFacultyRoleRepository FacultyRoleRepository { get; }
+        //IFacultyRoleRepository FacultyRoleRepository { get; }
     }
 }
