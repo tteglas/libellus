@@ -16,16 +16,6 @@ namespace Libellus.DataAccess.Repositories.Implementation
             _dbContext = dbContext;
         }
 
-        public void Attach(T entity)
-        {
-            DbSet.Attach(entity);
-        }
-
-        public void Detach(T entity)
-        {
-            _dbContext.Entry(entity).State = EntityState.Detached;
-        }
-
         public List<T> GetAll()
         {
             return DbSet.Distinct().ToList();

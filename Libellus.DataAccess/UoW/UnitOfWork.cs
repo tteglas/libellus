@@ -11,14 +11,12 @@ namespace Libellus.DataAccess.UoW
         private IDepartmentRepository _departmentRepository;
         private IProjectRepository _projectRepository;
         private ITaskRepository _taskRepository;
-        //private IFacultyRoleRepository _facultyRoleRepository;
 
         public UnitOfWork(LibellusDbContext dbContext,
             IFacultyRepository facultyRepository,
             IDepartmentRepository departmentRepository,
             IProjectRepository projectRepository,
-            ITaskRepository taskRepository
-            /*IFacultyRoleRepository facultyRoleRepository*/)
+            ITaskRepository taskRepository)
         {
             _dbContext = dbContext;
 
@@ -26,7 +24,6 @@ namespace Libellus.DataAccess.UoW
             _departmentRepository = departmentRepository;
             _projectRepository = projectRepository;
             _taskRepository = taskRepository;
-            //_facultyRoleRepository = facultyRoleRepository;
         }
 
         public void Save()
@@ -41,7 +38,5 @@ namespace Libellus.DataAccess.UoW
         public IProjectRepository ProjectRepository { get { return _projectRepository; } }
 
         public ITaskRepository TaskRepository { get { return _taskRepository; } }
-
-        //public IFacultyRoleRepository FacultyRoleRepository { get { return _facultyRoleRepository; } }
     }
 }

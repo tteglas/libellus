@@ -111,9 +111,7 @@ namespace Libellus.Controllers
 
             if (project != null && user.Result != null)
             {
-                _projectProcessor.UnSubscribe(project);
-                project.User = user.Result;
-                _projectProcessor.Subscribe(project);
+                
             }
             return View("");
         }
