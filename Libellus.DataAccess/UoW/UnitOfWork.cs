@@ -1,22 +1,23 @@
 ﻿using Libellus.DataAccess.Database;
 using Libellus.DataAccess.Repositories.Interface;
-using System.Data.Entity.Infrastructure;
 
 namespace Libellus.DataAccess.UoW
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private LibellusDbContext _dbContext;
-        private IFacultyRepository _facultyRepository;
-        private IDepartmentRepository _departmentRepository;
-        private IProjectRepository _projectRepository;
-        private ITaskRepository _taskRepository;
+        private readonly LibellusDbContext _dbContext;
+        private readonly IFacultyRepository _facultyRepository;
+        private readonly IDepartmentRepository _departmentRepository;
+        private readonly IProjectRepository _projectRepository;
+        private readonly ITaskRepository _taskRepository;
+        private readonly ISubscriptionRepository _subscriptionRepository;
 
         public UnitOfWork(LibellusDbContext dbContext,
             IFacultyRepository facultyRepository,
             IDepartmentRepository departmentRepository,
             IProjectRepository projectRepository,
-            ITaskRepository taskRepository)
+            ITaskRepository taskRepository,
+            ISubscriptionRepository subscriptionRepository)
         {
             _dbContext = dbContext;
 
@@ -24,6 +25,7 @@ namespace Libellus.DataAccess.UoW
             _departmentRepository = departmentRepository;
             _projectRepository = projectRepository;
             _taskRepository = taskRepository;
+            _subscriptionRepository = subscriptionRepository;
         }
 
         public void Save()
@@ -31,12 +33,14 @@ namespace Libellus.DataAccess.UoW
             _dbContext.SaveChanges();
         }
 
-        public IFacultyRepository FacultyRepository { get { return _facultyRepository; } }
+        public IFacultyRepository FacultyRepository => _facultyRepository;
 
-        public IDepartmentRepository DepartmentRepository { get { return _departmentRepository; } }
+        public IDepartmentRepository DepartmentRepository => _departmentRepository;
 
-        public IProjectRepository ProjectRepository { get { return _projectRepository; } }
+        public IProjectRepository ProjectRepository => _projectRepository;
 
-        public ITaskRepository TaskRepository { get { return _taskRepository; } }
+        public ITaskRepository TaskRepository => _taskRepository;
+
+        public ISubscriptionRepository SubscriptionRepository => _subscriptionRepository;
     }
 }

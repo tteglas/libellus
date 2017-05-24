@@ -61,10 +61,12 @@
     <Compile Include="Processors\Implementation\DepartmentProcessor.cs" />
     <Compile Include="Processors\Implementation\FacultyProcessor.cs" />
     <Compile Include="Processors\Implementation\ProjectProcessor.cs" />
+    <Compile Include="Processors\Implementation\SubscriptionProcessor.cs" />
     <Compile Include="Processors\Interface\IBaseProcessor.cs" />
     <Compile Include="Processors\Interface\IDepartmentProcessor.cs" />
     <Compile Include="Processors\Interface\IFacultyProcessor.cs" />
     <Compile Include="Processors\Interface\IProjectProcessor.cs" />
+    <Compile Include="Processors\Interface\ISubscriptionProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -13,5 +13,7 @@ namespace Libellus.DataAccess.UoW
         IProjectRepository ProjectRepository { get; }
 
         ITaskRepository TaskRepository { get; }
+
+        ISubscriptionRepository SubscriptionRepository { get; }
     }
 }

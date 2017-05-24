@@ -54,18 +54,18 @@ namespace Libellus.App_Start
             container.RegisterType<SignInCustomManager>(new InjectionFactory(c => CreateSignInManager()));
             container.RegisterType<RoleCustomManager>(new InjectionFactory(c => CreateRoleManager()));
 
-
             container.RegisterType<IBaseProcessor, BaseProcessor>();
             container.RegisterType<IDepartmentProcessor, DepartmentProcessor>();
             container.RegisterType<IFacultyProcessor, FacultyProcessor>();
             container.RegisterType<IProjectProcessor, ProjectProcessor>();
+            container.RegisterType<ISubscriptionProcessor, SubscriptionProcessor>();
 
             container.RegisterType<IUnitOfWork, UnitOfWork>();
             container.RegisterType<IFacultyRepository, FacultyRepository>();
             container.RegisterType<IDepartmentRepository, DepartmentRepository>();
             container.RegisterType<IProjectRepository, ProjectRepository>();
             container.RegisterType<ITaskRepository, TaskRepository>();
-            //container.RegisterType<IFacultyRoleRepository, FacultyRoleRepository>();
+            container.RegisterType<ISubscriptionRepository, SubscriptionRepository>();
         }
 
         private static UserCustomManager CreateUserCustomManager()

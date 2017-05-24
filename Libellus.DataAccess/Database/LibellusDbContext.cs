@@ -22,17 +22,13 @@ namespace Libellus.DataAccess.Database
             modelBuilder.Entity<Project>().ToTable("Project");
             modelBuilder.Entity<Task>().ToTable("Task");
             modelBuilder.Entity<User>().ToTable("AspNetUsers");
-            //modelBuilder.Entity<UserProjectDepartment>().ToTable("UserProjectDepartment");
-
-            //modelBuilder.Entity<User>().HasMany(x => x.Projects)
-            //    .WithRequired().HasForeignKey(x => x.UserId);
-            //modelBuilder.Entity<Department>().HasRequired(x => x.User).WithMany(x => x.Department);
-            //modelBuilder.Entity<User>().HasOptional(x => x.Projects).WithOptionalPrincipal();
+            modelBuilder.Entity<Subscription>().ToTable("Subscription");
         }
 
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Task> Tasks { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
     }
 }

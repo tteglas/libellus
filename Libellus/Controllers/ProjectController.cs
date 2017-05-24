@@ -111,7 +111,7 @@ namespace Libellus.Controllers
 
             if (project != null && user.Result != null)
             {
-                
+                // todo add functionality for subscription
             }
             return View("");
         }
