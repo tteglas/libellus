@@ -1,4 +1,5 @@
 using System;
+using System.Data.Entity;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 using Libellus.DataAccess.Database;
@@ -9,9 +10,12 @@ using Libellus.DataAccess.Repositories.Interface;
 using Libellus.DataAccess.UoW;
 using System.Data.Entity.Infrastructure;
 using System.Web;
+using Libellus.DataAccess.Domain;
 using Microsoft.AspNet.Identity.Owin;
 using Libellus.Managers;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
 
 namespace Libellus.App_Start
 {
@@ -47,12 +51,21 @@ namespace Libellus.App_Start
             // container.LoadConfiguration();
 
             // Register types here
-            container.RegisterType<LibellusDbContext>(new PerRequestLifetimeManager());
+            container.RegisterType<DbContext, LibellusDbContext>(new PerRequestLifetimeManager());
             //container.RegisterType<RoleManager<>>()
+            container.RegisterType<IAuthenticationManager>(
+                new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
 
-            container.RegisterType<UserCustomManager>(new InjectionFactory(c => CreateUserCustomManager()));
-            container.RegisterType<SignInCustomManager>(new InjectionFactory(c => CreateSignInManager()));
-            container.RegisterType<RoleCustomManager>(new InjectionFactory(c => CreateRoleManager()));
+            container.RegisterType<IUserStore<User>, UserStore<User>>(new PerRequestLifetimeManager());
+
+            //container.RegisterType<UserCustomManager>(new InjectionFactory(c => CreateUserCustomManager()));
+            container.RegisterType<UserManager<User>, UserCustomManager>(new PerRequestLifetimeManager());
+
+            //container.RegisterType<SignInCustomManager>(new InjectionFactory(c => CreateSignInManager()));
+            container.RegisterType<SignInManager<User, string>, SignInCustomManager>(new PerRequestLifetimeManager());
+
+            //container.RegisterType<RoleCustomManager>(new InjectionFactory(c => CreateRoleManager()));
+            container.RegisterType<RoleManager<IdentityRole>, RoleCustomManager>(new PerRequestLifetimeManager());
 
             container.RegisterType<IBaseProcessor, BaseProcessor>();
             container.RegisterType<IDepartmentProcessor, DepartmentProcessor>();

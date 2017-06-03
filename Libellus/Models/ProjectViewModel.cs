@@ -10,6 +10,7 @@ namespace Libellus.Models
         {
             AvailableProfessors = new List<User>();
         }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -20,6 +21,7 @@ namespace Libellus.Models
         public PagedList<Project> UserProjects { get; set; }
         public PagedList<Project> UserInProgressProjects { get; set; }
         public List<User> AvailableProfessors { get; set; }
+        public Subscription Subscription { get; set; }
 
         public User User { get; set; }
     }

@@ -12,6 +12,7 @@ using System.Web.Security;
 using System.Web.UI;
 using Libellus.DataAccess.UoW;
 using Libellus.Managers;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Libellus.Controllers
@@ -20,16 +21,20 @@ namespace Libellus.Controllers
     public class ProjectController : Controller
     {
         #region Private Members
+
+        private readonly ISubscriptionProcessor _subscriptionProcessor;
         private readonly IProjectProcessor _projectProcessor;
         private readonly UserCustomManager _userManager;
         #endregion
 
         #region Constructor
         public ProjectController(IProjectProcessor projectProcessor,
-            UserCustomManager userManager)
+            UserCustomManager userManager,
+            ISubscriptionProcessor subscriptionProcessor)
         {
             _projectProcessor = projectProcessor;
             _userManager = userManager;
+            _subscriptionProcessor = subscriptionProcessor;
         }
         #endregion
 
@@ -104,16 +109,63 @@ namespace Libellus.Controllers
             return View("ProjectDetailsView", model);
         }
 
-        public ActionResult Subscribe(int id)
+        [HttpPost]
+        public PartialViewResult Subscribe(int id)
         {
-            var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
+            var user = _userManager.FindByEmail(HttpContext.User.Identity.Name);
             var project = _projectProcessor.GetAllProjects().FirstOrDefault(x => x.Id == id);
 
-            if (project != null && user.Result != null)
+            if (project != null && user != null)
             {
-                // todo add functionality for subscription
+                var subscription = new Subscription();
+                subscription.ProjectId = project.Id;
+                subscription.UserId = user.Id;
+
+                subscription.User = user;
+                subscription.Project = project;
+                _subscriptionProcessor.CreateSubscription(subscription);
+
+                var model = new ProjectViewModel();
+                model.Id = project.Id;
+                model.Name = project.Name;
+                model.Description = project.Description;
+                model.Subscription = subscription;
+
+                return PartialView("_DismissableAlert");
+
+                //return new HtmlString("<div class=\"col - md - 6\"><div class=\"alert alert-success alert-dismissable\">" +
+                //                      "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">" +
+                //                      "×" +
+                //                      "</button>" +
+                //                      "<h4>OK !</h4>You have succesfully subscribed! <a href=\"#\" class=\"alert-link\">alert link</a></div>" +
+                //                      "</div>");
+
+                //return View("ProjectDetailsView", model);
             }
-            return View("");
+            return null;
+
+            //return View("ProjectDetailsView");
+        }
+
+        [HttpPost]
+        public PartialViewResult Unsubscribe(int id)
+        {
+            var project = _projectProcessor.GetAllProjects().FirstOrDefault(x => x.Id == id);
+
+            if (project != null)
+            {
+                var subscription = _subscriptionProcessor.GetSubscriptionByProjectId(id);
+                _subscriptionProcessor.RemoveSubscription(subscription);
+
+                var model = new ProjectViewModel();
+                model.Id = project.Id;
+                model.Name = project.Name;
+                model.Description = project.Description;
+                model.Subscription = null;
+
+                return PartialView("_DismissableAlert");
+            }
+            return null;
         }
 
         #region Partial views

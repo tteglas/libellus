@@ -7,5 +7,9 @@ namespace Libellus.BusinessCore.Processors.Interface
         void CreateSubscription(Subscription subscription);
 
         void RemoveSubscription(Subscription subscription);
+
+        Subscription GetSubscriptionByUserId(string userId);
+
+        Subscription GetSubscriptionByProjectId(int projectId);
     }
 }

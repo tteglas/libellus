@@ -66,7 +66,7 @@ namespace Libellus.DataAccess.Migrations
                     Email = "mona@zxc.as",
                     PasswordHash = password,
                     PhoneNumber = "12345679",
-                    DepartmentId = 2,
+                    DepartmentId = 1,
                     Department = context.Departments.FirstOrDefault(x => x.Id == 1),
                     SecurityStamp = new Guid().ToString()
                 });

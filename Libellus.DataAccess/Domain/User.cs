@@ -27,7 +27,7 @@ namespace Libellus.DataAccess.Domain
         public int DepartmentId { get; set; }
 
         public virtual ICollection<Project> Projects { get; set; }
-        
+
         public virtual Department Department { get; set; }
     }
 }

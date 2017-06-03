@@ -1,4 +1,5 @@
-﻿using Libellus.BusinessCore.Processors.Interface;
+﻿using System.Linq;
+using Libellus.BusinessCore.Processors.Interface;
 using Libellus.DataAccess.Domain;
 using Libellus.DataAccess.UoW;
 
@@ -20,6 +21,16 @@ namespace Libellus.BusinessCore.Processors.Implementation
         {
             UnitOfWork.SubscriptionRepository.Delete(subscription);
             UnitOfWork.Save();
+        }
+
+        public Subscription GetSubscriptionByUserId(string userId)
+        {
+            return UnitOfWork.SubscriptionRepository.GetAll().FirstOrDefault(x => x.UserId == userId);
+        }
+
+        public Subscription GetSubscriptionByProjectId(int projectId)
+        {
+            return UnitOfWork.SubscriptionRepository.GetAll().FirstOrDefault(x => x.ProjectId == projectId);
         }
     }
 }

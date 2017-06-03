@@ -28,19 +28,40 @@
     @if (User.IsInRole(CommonHelper.ROLE_Student))
     {
         <div class="row">
-            <div class="col-sm-2">
-                @Html.ActionLink("Subscribe", "Subscribe", new {id = Model.Id})
-                @*<div class="col-md-6">
-                        <div class="alert alert-success alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                                ×
-                            </button>
-                            <h4>
-                                Alert!
-                            </h4> <strong>Warning!</strong> Best check yo self, you're not looking too good. <a href="#" class="alert-link">alert link</a>
+            @if (Model.Subscription == null)
+            {
+                <div id="subscribed-alert">
+                    @using (Ajax.BeginForm("Subscribe", "Project", new { id = Model.Id },
+                    new AjaxOptions
+                    {
+                        HttpMethod = "POST", // HttpPost
+                        InsertionMode = InsertionMode.Replace, // empty the target first
+                        UpdateTargetId = "subscribed-alert" // place content within #update-me
+                    }))
+                    {
+                        <div class="col-md-12">
+                            <input type="submit" class="btn btn-success" value="Subscribe">
                         </div>
-                    </div>*@
-            </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div id="unsubscribed-alert">
+                    @using (Ajax.BeginForm("Unsubscribe", "Project", new { id = Model.Id },
+                    new AjaxOptions
+                    {
+                        HttpMethod = "POST", // HttpPost
+                        InsertionMode = InsertionMode.Replace, // empty the target first
+                        UpdateTargetId = "unsubscribed-alert" // place content within #update-me
+                    }))
+                    {
+                        <div class="col-md-12">
+                            <input type="submit" class="btn btn-success" value="Unsubscribe">
+                        </div>
+                    }
+                </div>
+            }
         </div>
     }
 </div>
